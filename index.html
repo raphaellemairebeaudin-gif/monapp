@@ -2,7 +2,7 @@
 <html lang="fr">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#1a1b20">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -11,6 +11,30 @@
     <link rel="manifest" href="./manifest.webmanifest">
     <link rel="icon" href="./icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const isStandalone =
+          window.navigator.standalone === true ||
+          window.matchMedia("(display-mode: standalone)").matches;
+
+        function updateAppHeight() {
+          const height = isStandalone && window.screen.height
+            ? window.screen.height
+            : window.visualViewport
+              ? window.visualViewport.height
+              : window.innerHeight;
+          root.style.setProperty("--app-height", `${height}px`);
+        }
+
+        updateAppHeight();
+        window.addEventListener("resize", updateAppHeight);
+        window.addEventListener("orientationchange", updateAppHeight);
+        if (window.visualViewport) {
+          window.visualViewport.addEventListener("resize", updateAppHeight);
+        }
+      })();
+    </script>
     <style>
       :root {
         color-scheme: dark;
@@ -21,6 +45,7 @@
         text-rendering: optimizeLegibility;
         --safe-top: env(safe-area-inset-top, 0px);
         --safe-bottom: env(safe-area-inset-bottom, 0px);
+        --app-height: 100dvh;
       }
 
       * {
@@ -32,7 +57,7 @@
       html,
       body {
         width: 100%;
-        height: 100%;
+        height: var(--app-height);
         min-width: 320px;
         margin: 0;
         overflow: hidden;
@@ -41,8 +66,6 @@
       }
 
       body {
-        height: 100vh;
-        height: 100dvh;
         background: linear-gradient(135deg, #000 0%, #1a1b20 42%);
       }
 
@@ -101,7 +124,7 @@
         position: fixed;
         z-index: 10;
         right: 0;
-        bottom: 12px;
+        bottom: max(12px, calc(var(--safe-bottom) - 12px));
         left: 0;
         display: flex;
         width: 100%;
