@@ -100,39 +100,37 @@
       .bottom-nav {
         position: fixed;
         z-index: 1;
-        right: 50%;
-        bottom: calc(2px + var(--safe-bottom));
+        right: 0;
+        bottom: 0;
+        left: 0;
         display: flex;
-        width: 64px;
-        height: 64px;
+        width: 100%;
+        height: calc(58px + var(--safe-bottom));
         align-items: center;
         justify-content: center;
-        padding: 4px;
-        transform: translateX(50%);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 25px;
-        background: rgba(255, 255, 255, 0.24);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.24);
+        padding: 4px 0 var(--safe-bottom);
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.14);
         -webkit-backdrop-filter: blur(24px) saturate(160%);
         backdrop-filter: blur(24px) saturate(160%);
       }
 
       .nav-item {
         display: flex;
-        width: 54px;
-        height: 54px;
+        width: 46px;
+        height: 46px;
         align-items: center;
         justify-content: center;
         border: 0;
-        border-radius: 18px;
+        border-radius: 15px;
         background: rgba(12, 13, 16, 0.68);
         color: #fff;
         -webkit-tap-highlight-color: transparent;
       }
 
       .nav-item svg {
-        width: 32px;
-        height: 32px;
+        width: 27px;
+        height: 27px;
       }
 
       .nav-item:focus-visible {
