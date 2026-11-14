@@ -99,27 +99,27 @@
 
       .bottom-nav {
         position: fixed;
-        z-index: 1;
+        z-index: 10;
         right: 0;
-        bottom: calc(12px - var(--safe-bottom));
+        bottom: 12px;
         left: 0;
         display: flex;
         width: 100%;
-        height: 78px;
+        height: 62px;
         align-items: center;
         justify-content: center;
-        padding: 0 20px 4px;
+        padding: 0 20px 2px;
         pointer-events: none;
       }
 
       .nav-pill {
         display: flex;
         width: min(100%, 560px);
-        height: 70px;
+        height: 56px;
         align-items: center;
         justify-content: space-between;
         gap: 4px;
-        padding: 5px;
+        padding: 4px;
         border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 999px;
         background: rgba(23, 24, 28, 0.86);
@@ -132,7 +132,7 @@
       .nav-item {
         display: flex;
         min-width: 0;
-        height: 58px;
+        height: 46px;
         padding: 0;
         align-items: center;
         justify-content: center;
@@ -154,13 +154,13 @@
       }
 
       .nav-item svg {
-        width: 28px;
-        height: 28px;
+        width: 24px;
+        height: 24px;
       }
 
       .nav-item[aria-current="page"] svg {
-        width: 30px;
-        height: 30px;
+        width: 26px;
+        height: 26px;
       }
 
       .nav-item:focus-visible {
@@ -176,11 +176,11 @@
       @media (max-width: 360px) {
         .nav-pill {
           gap: 2px;
-          height: 64px;
+          height: 54px;
         }
 
         .nav-item {
-          height: 52px;
+          height: 44px;
         }
       }
     </style>
