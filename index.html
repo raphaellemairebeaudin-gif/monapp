@@ -63,11 +63,148 @@
         margin: 0;
         overflow: hidden;
         overscroll-behavior: none;
-        touch-action: none;
+        touch-action: pan-y;
       }
 
       body {
         background: linear-gradient(135deg, #000 0%, #1a1b20 42%);
+      }
+
+      .auth-screen {
+        position: fixed;
+        z-index: 200;
+        inset: 0;
+        display: grid;
+        height: var(--app-height);
+        place-items: center;
+        overflow-y: auto;
+        padding: max(24px, var(--safe-top)) 24px max(24px, var(--safe-bottom));
+        background: linear-gradient(135deg, #000 0%, #1a1b20 42%);
+        touch-action: pan-y;
+      }
+
+      .auth-screen[hidden],
+      .save-toast[hidden],
+      .session-feedback[hidden] {
+        display: none;
+      }
+
+      .auth-card {
+        width: min(100%, 400px);
+        padding: 26px 22px 22px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 22px;
+        background: rgba(25, 26, 31, 0.82);
+        box-shadow: 0 16px 44px rgba(0, 0, 0, 0.34);
+      }
+
+      .auth-title {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 650;
+      }
+
+      .auth-description {
+        margin: 8px 0 22px;
+        color: rgba(255, 255, 255, 0.62);
+        font-size: 14px;
+        line-height: 1.45;
+      }
+
+      .auth-form {
+        display: grid;
+        gap: 15px;
+      }
+
+      .auth-field {
+        display: grid;
+        gap: 7px;
+        color: rgba(255, 255, 255, 0.78);
+        font-size: 14px;
+        font-weight: 550;
+      }
+
+      .auth-input {
+        width: 100%;
+        min-height: 48px;
+        padding: 0 14px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 13px;
+        background: rgba(0, 0, 0, 0.28);
+        color: #fff;
+        font: inherit;
+        font-size: 16px;
+        -webkit-user-select: text;
+        user-select: text;
+      }
+
+      .auth-input:focus-visible {
+        outline: 2px solid rgba(255, 255, 255, 0.8);
+        outline-offset: 2px;
+      }
+
+      .auth-submit {
+        min-height: 48px;
+        margin-top: 3px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.16);
+        color: #fff;
+        font: inherit;
+        font-size: 15px;
+        font-weight: 600;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .auth-submit:disabled {
+        opacity: 0.55;
+      }
+
+      .auth-mode-toggle {
+        display: block;
+        min-height: 44px;
+        margin: 10px auto 0;
+        padding: 0 8px;
+        border: 0;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.78);
+        font: inherit;
+        font-size: 14px;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .auth-feedback {
+        min-height: 20px;
+        margin: 12px 0 0;
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 13px;
+        line-height: 1.45;
+        overflow-wrap: anywhere;
+      }
+
+      .auth-feedback.error,
+      .session-feedback.error,
+      .save-toast.error {
+        color: #ffb1b1;
+      }
+
+      .save-toast {
+        position: fixed;
+        z-index: 120;
+        right: 24px;
+        bottom: calc(20px + var(--safe-bottom));
+        left: 24px;
+        width: fit-content;
+        max-width: calc(100% - 48px);
+        margin: 0 auto;
+        padding: 12px 16px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 14px;
+        background: rgba(36, 37, 42, 0.96);
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+        color: #fff;
+        font-size: 14px;
+        text-align: center;
       }
 
       .gym-page {
@@ -78,11 +215,18 @@
 
       .topbar {
         position: absolute;
+        z-index: 20;
         top: calc(24px + var(--safe-top));
         right: 24px;
         left: 24px;
         display: flex;
         justify-content: flex-end;
+      }
+
+      .options-wrap {
+        position: relative;
+        width: 44px;
+        height: 44px;
       }
 
       .page-heading {
@@ -94,12 +238,283 @@
         border-bottom: 1px solid rgba(255, 255, 255, 0.12);
       }
 
+      .new-session-page {
+        position: fixed;
+        z-index: 100;
+        inset: 0;
+        width: 100%;
+        height: var(--app-height);
+        overflow: hidden;
+        background: linear-gradient(135deg, #000 0%, #1a1b20 42%);
+        touch-action: pan-y;
+      }
+
+      .new-session-page[hidden] {
+        display: none;
+      }
+
+      .session-topbar {
+        position: absolute;
+        top: calc(24px + var(--safe-top));
+        right: 24px;
+        left: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .back-button {
+        display: grid;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 50%;
+        background: rgba(54, 55, 60, 0.76);
+        color: #fff;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.24);
+        -webkit-backdrop-filter: blur(24px) saturate(160%);
+        backdrop-filter: blur(24px) saturate(160%);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .back-button svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      .back-button:focus-visible {
+        outline: 2px solid rgba(255, 255, 255, 0.85);
+        outline-offset: 3px;
+      }
+
+      .back-button:disabled {
+        opacity: 0.55;
+      }
+
+      .cancel-confirmation {
+        position: absolute;
+        z-index: 2;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        padding: max(24px, var(--safe-top)) 24px max(24px, var(--safe-bottom));
+        background: rgba(0, 0, 0, 0.28);
+        -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(5px);
+        touch-action: none;
+      }
+
+      .cancel-confirmation[hidden] {
+        display: none;
+      }
+
+      .confirmation-card {
+        width: min(100%, 360px);
+        max-height: calc(var(--app-height) - var(--safe-top) - var(--safe-bottom) - 48px);
+        padding: 22px 18px 18px;
+        overflow-y: auto;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 20px;
+        background: rgba(34, 35, 40, 0.96);
+        box-shadow: 0 16px 44px rgba(0, 0, 0, 0.42);
+      }
+
+      .confirmation-title {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 650;
+        line-height: 1.4;
+      }
+
+      .confirmation-actions {
+        display: grid;
+        gap: 10px;
+        margin-top: 22px;
+      }
+
+      .confirmation-button {
+        min-height: 46px;
+        padding: 0 14px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 13px;
+        color: #fff;
+        font: inherit;
+        font-size: 15px;
+        font-weight: 600;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .confirmation-button.cancel {
+        border-color: rgba(255, 255, 255, 0.08);
+        background: #a9434b;
+      }
+
+      .confirmation-button.continue {
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .confirmation-button:focus-visible {
+        outline: 2px solid rgba(255, 255, 255, 0.9);
+        outline-offset: 2px;
+      }
+
       .page-title {
         margin: 0;
         font-size: clamp(22px, 5.6vw, 26px);
         font-weight: 550;
         letter-spacing: -0.025em;
         line-height: 1.2;
+      }
+
+      .session-title-heading {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .session-title-input {
+        width: 0;
+        min-width: 0;
+        padding: 0;
+        flex: 1;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        color: inherit;
+        font-family: inherit;
+        font-size: inherit;
+        font-weight: inherit;
+        letter-spacing: inherit;
+        line-height: inherit;
+        caret-color: #fff;
+        -webkit-user-select: text;
+        user-select: text;
+      }
+
+      .session-title-edit {
+        display: grid;
+        width: 30px;
+        height: 30px;
+        flex: 0 0 auto;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.06);
+        color: rgba(255, 255, 255, 0.68);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .session-title-edit svg {
+        width: 15px;
+        height: 15px;
+      }
+
+      .session-content {
+        position: absolute;
+        top: calc(184px + var(--safe-top));
+        right: 24px;
+        bottom: max(20px, var(--safe-bottom));
+        left: 24px;
+        max-width: 680px;
+        margin-inline: auto;
+        overflow-y: auto;
+        padding-bottom: 12px;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-y;
+      }
+
+      .session-feedback {
+        margin: 0 0 12px;
+        padding: 11px 13px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.25);
+        font-size: 13px;
+        line-height: 1.4;
+        overflow-wrap: anywhere;
+      }
+
+      .exercise-list-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      .exercise-list-title {
+        margin: 0;
+        font-size: 17px;
+        font-weight: 600;
+      }
+
+      .add-exercise-button {
+        display: flex;
+        min-height: 42px;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 0 13px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 13px;
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+        font: inherit;
+        font-size: 14px;
+        font-weight: 550;
+        white-space: nowrap;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .add-exercise-button svg {
+        width: 17px;
+        height: 17px;
+        flex: 0 0 auto;
+      }
+
+      .exercise-empty-state {
+        display: grid;
+        min-height: 164px;
+        place-content: center;
+        justify-items: center;
+        gap: 8px;
+        padding: 22px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 18px;
+        background: rgba(0, 0, 0, 0.28);
+        text-align: center;
+      }
+
+      .exercise-empty-icon {
+        display: grid;
+        width: 42px;
+        height: 42px;
+        margin-bottom: 3px;
+        place-items: center;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.78);
+      }
+
+      .exercise-empty-icon svg {
+        width: 21px;
+        height: 21px;
+      }
+
+      .exercise-empty-title {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 550;
+      }
+
+      .exercise-empty-description {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.56);
+        font-size: 13px;
+        line-height: 1.4;
       }
 
       .more-button {
@@ -126,6 +541,49 @@
       .more-button:focus-visible {
         outline: 2px solid rgba(255, 255, 255, 0.8);
         outline-offset: 3px;
+      }
+
+      .options-menu {
+        position: absolute;
+        z-index: 20;
+        right: 0;
+        top: calc(100% + 8px);
+        width: min(220px, calc(100vw - 48px));
+        max-height: calc(var(--app-height) - var(--safe-top) - 48px);
+        padding: 6px;
+        overflow-y: auto;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 17px;
+        background: rgba(36, 37, 42, 0.96);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+        -webkit-backdrop-filter: blur(24px) saturate(160%);
+        backdrop-filter: blur(24px) saturate(160%);
+      }
+
+      .options-menu[hidden] {
+        display: none;
+      }
+
+      .menu-action {
+        display: flex;
+        width: 100%;
+        min-height: 44px;
+        align-items: center;
+        padding: 0 12px;
+        border: 0;
+        border-radius: 11px;
+        background: transparent;
+        color: #fff;
+        text-align: left;
+        font: inherit;
+        font-size: 15px;
+        font-weight: 500;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .menu-action:focus-visible {
+        outline: 2px solid rgba(255, 255, 255, 0.85);
+        outline-offset: -2px;
       }
 
       .bottom-nav {
@@ -206,21 +664,46 @@
     </style>
   </head>
   <body>
-    <main class="gym-page" aria-label="Page Gym">
+    <section class="auth-screen" id="auth-screen" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+      <div class="auth-card">
+        <h1 class="auth-title" id="auth-title">Connexion</h1>
+        <p class="auth-description" id="auth-description">Connecte-toi pour retrouver tes séances.</p>
+        <form class="auth-form" id="auth-form">
+          <label class="auth-field" for="auth-email">
+            Courriel
+            <input class="auth-input" id="auth-email" name="email" type="email" autocomplete="email" required>
+          </label>
+          <label class="auth-field" for="auth-password">
+            Mot de passe
+            <input class="auth-input" id="auth-password" name="password" type="password" autocomplete="current-password" required>
+          </label>
+          <button class="auth-submit" id="auth-submit" type="submit" disabled>Se connecter</button>
+        </form>
+        <button class="auth-mode-toggle" id="auth-mode-toggle" type="button">Créer un compte</button>
+        <p class="auth-feedback" id="auth-feedback" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+    <main class="gym-page" aria-label="Page Gym" inert>
       <header class="topbar">
-        <button class="more-button" type="button" aria-label="Plus d’options">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <circle cx="5" cy="12" r="1.7" />
-            <circle cx="12" cy="12" r="1.7" />
-            <circle cx="19" cy="12" r="1.7" />
-          </svg>
-        </button>
+        <div class="options-wrap">
+          <button class="more-button" id="menu-toggle" type="button" aria-label="Plus d’options" aria-expanded="false" aria-controls="options-menu">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <circle cx="5" cy="12" r="1.7" />
+              <circle cx="12" cy="12" r="1.7" />
+              <circle cx="19" cy="12" r="1.7" />
+            </svg>
+          </button>
+          <div class="options-menu" id="options-menu" role="menu" hidden>
+            <button class="menu-action" id="new-session-action" type="button" role="menuitem">Nouvelle séance</button>
+            <button class="menu-action" id="sign-out-action" type="button" role="menuitem">Se déconnecter</button>
+          </div>
+        </div>
       </header>
       <section class="page-heading" aria-labelledby="page-title">
         <h1 class="page-title" id="page-title">Aujourd’hui</h1>
       </section>
     </main>
-    <nav class="bottom-nav" aria-label="Navigation principale">
+    <nav class="bottom-nav" aria-label="Navigation principale" inert>
       <div class="nav-pill">
         <a class="nav-item" href="./" aria-current="page" aria-label="Gym, page actuelle">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -249,7 +732,395 @@
         </button>
       </div>
     </nav>
+    <section class="new-session-page" id="new-session-page" aria-label="Nouvelle séance" hidden>
+      <header class="session-topbar">
+        <button class="back-button" id="back-to-gym" type="button" aria-label="Retour à Gym">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+        </button>
+        <button class="back-button" id="confirm-session" type="button" aria-label="Valider la séance">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m5 12 4 4L19 6" />
+          </svg>
+        </button>
+      </header>
+      <section class="page-heading" aria-label="Titre de la séance">
+        <h1 class="page-title session-title-heading">
+          <input class="session-title-input" id="session-title" type="text" value="Nouvelle séance" aria-label="Titre de la séance" autocomplete="off">
+          <label class="session-title-edit" for="session-title" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m16 4 4 4M4 20l4-.8L19 8a2.1 2.1 0 0 0-3-3L5 16l-1 4Z" />
+            </svg>
+          </label>
+        </h1>
+      </section>
+      <div class="session-content" role="region" aria-label="Création de la séance">
+        <p class="session-feedback" id="session-feedback" role="status" aria-live="polite" hidden></p>
+        <section aria-labelledby="exercise-list-title">
+          <header class="exercise-list-header">
+            <h2 class="exercise-list-title" id="exercise-list-title">Exercices</h2>
+            <button class="add-exercise-button" type="button" aria-label="Ajouter un exercice">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+              Ajouter un exercice
+            </button>
+          </header>
+          <div class="exercise-empty-state">
+            <span class="exercise-empty-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 8.5v7M3.5 10v4M18 8.5v7m2.5-5v4M6 12h12" />
+              </svg>
+            </span>
+            <p class="exercise-empty-title">Aucun exercice pour le moment</p>
+            <p class="exercise-empty-description">Les exercices de ta séance apparaîtront ici.</p>
+          </div>
+        </section>
+      </div>
+      <div class="cancel-confirmation" id="cancel-confirmation" hidden>
+        <section class="confirmation-card" role="alertdialog" aria-modal="true" aria-labelledby="confirmation-title">
+          <h2 class="confirmation-title" id="confirmation-title">Veux-tu vraiment annuler la création de la séance&nbsp;?</h2>
+          <div class="confirmation-actions">
+            <button class="confirmation-button cancel" id="cancel-session" type="button">Annuler la séance</button>
+            <button class="confirmation-button continue" id="continue-session" type="button">Continuer de créer la séance</button>
+          </div>
+        </section>
+      </div>
+    </section>
+    <p class="save-toast" id="save-toast" role="status" aria-live="polite" hidden></p>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./supabase-config.js"></script>
     <script>
+      const menuToggle = document.querySelector("#menu-toggle");
+      const optionsMenu = document.querySelector("#options-menu");
+      const menuAction = optionsMenu.querySelector(".menu-action");
+      const signOutAction = document.querySelector("#sign-out-action");
+      const newSessionPage = document.querySelector("#new-session-page");
+      const backToGym = document.querySelector("#back-to-gym");
+      const confirmSession = document.querySelector("#confirm-session");
+      const sessionTitle = document.querySelector("#session-title");
+      const sessionFeedback = document.querySelector("#session-feedback");
+      const sessionTopbar = document.querySelector(".session-topbar");
+      const cancelConfirmation = document.querySelector("#cancel-confirmation");
+      const cancelSession = document.querySelector("#cancel-session");
+      const continueSession = document.querySelector("#continue-session");
+      const mainPage = document.querySelector(".gym-page");
+      const bottomNav = document.querySelector(".bottom-nav");
+      const authScreen = document.querySelector("#auth-screen");
+      const authForm = document.querySelector("#auth-form");
+      const authEmail = document.querySelector("#auth-email");
+      const authPassword = document.querySelector("#auth-password");
+      const authTitle = document.querySelector("#auth-title");
+      const authDescription = document.querySelector("#auth-description");
+      const authSubmit = document.querySelector("#auth-submit");
+      const authModeToggle = document.querySelector("#auth-mode-toggle");
+      const authFeedback = document.querySelector("#auth-feedback");
+      const saveToast = document.querySelector("#save-toast");
+      const selectedExerciseIds = [];
+      let supabaseClient = null;
+      let currentUser = null;
+      let isSignUpMode = false;
+      let toastTimer = 0;
+
+      function setMenuOpen(isOpen) {
+        optionsMenu.hidden = !isOpen;
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+
+        if (isOpen) {
+          menuAction.focus();
+        }
+      }
+
+      menuToggle.addEventListener("click", () => {
+        setMenuOpen(optionsMenu.hidden);
+      });
+
+      menuAction.addEventListener("click", () => {
+        setMenuOpen(false);
+        sessionFeedback.hidden = true;
+        selectedExerciseIds.length = 0;
+        newSessionPage.hidden = false;
+        mainPage.inert = true;
+        bottomNav.inert = true;
+        backToGym.focus();
+      });
+
+      function setAuthFeedback(message, isError) {
+        authFeedback.textContent = message;
+        authFeedback.classList.toggle("error", isError);
+      }
+
+      function setSessionFeedback(message, isError) {
+        sessionFeedback.textContent = message;
+        sessionFeedback.classList.toggle("error", isError);
+        sessionFeedback.hidden = !message;
+      }
+
+      function showToast(message, isError) {
+        window.clearTimeout(toastTimer);
+        saveToast.textContent = message;
+        saveToast.classList.toggle("error", isError);
+        saveToast.hidden = false;
+        toastTimer = window.setTimeout(() => {
+          saveToast.hidden = true;
+        }, 3200);
+      }
+
+      function showAuthenticatedApp(user) {
+        if (!user) {
+          showAuthScreen();
+          return;
+        }
+
+        currentUser = user;
+        authScreen.hidden = true;
+        mainPage.inert = false;
+        bottomNav.inert = false;
+      }
+
+      function showAuthScreen() {
+        currentUser = null;
+        newSessionPage.hidden = true;
+        cancelConfirmation.hidden = true;
+        sessionTopbar.inert = false;
+        sessionTitle.value = "Nouvelle séance";
+        selectedExerciseIds.length = 0;
+        setMenuOpen(false);
+        authScreen.hidden = false;
+        mainPage.inert = true;
+        bottomNav.inert = true;
+      }
+
+      function setAuthMode(isSignUp) {
+        isSignUpMode = isSignUp;
+        authTitle.textContent = isSignUp ? "Créer un compte" : "Connexion";
+        authDescription.textContent = isSignUp
+          ? "Crée un compte pour garder tes séances privées."
+          : "Connecte-toi pour retrouver tes séances.";
+        authSubmit.textContent = isSignUp ? "Créer mon compte" : "Se connecter";
+        authPassword.autocomplete = isSignUp ? "new-password" : "current-password";
+        authModeToggle.textContent = isSignUp
+          ? "J’ai déjà un compte"
+          : "Créer un compte";
+        setAuthFeedback("", false);
+      }
+
+      function getLocalDate() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, "0");
+        const day = String(now.getDate()).padStart(2, "0");
+        return `${year}-${month}-${day}`;
+      }
+
+      async function saveNewSession() {
+        if (!supabaseClient || !currentUser) {
+          showAuthScreen();
+          setAuthFeedback("Connecte-toi avant d’enregistrer une séance.", true);
+          return;
+        }
+
+        const title = sessionTitle.value.trim();
+        if (!title) {
+          setSessionFeedback("Le titre de la séance ne peut pas être vide.", true);
+          sessionTitle.focus();
+          return;
+        }
+
+        setSessionFeedback("", false);
+        backToGym.disabled = true;
+        confirmSession.disabled = true;
+        confirmSession.setAttribute("aria-busy", "true");
+
+        try {
+          const { data, error } = await supabaseClient.rpc("create_workout", {
+            p_title: title,
+            p_session_date: getLocalDate(),
+            p_exercise_ids: selectedExerciseIds
+          });
+
+          if (error) {
+            const message = error.code === "PGRST202"
+              ? "Le schéma Supabase n’est pas encore installé. Exécute supabase/schema.sql dans l’éditeur SQL de Supabase."
+              : `Enregistrement impossible : ${error.message}`;
+            setSessionFeedback(message, true);
+            return;
+          }
+
+          if (typeof data !== "string" || !data) {
+            throw new Error("Supabase n’a pas confirmé l’enregistrement de la séance.");
+          }
+
+          closeNewSession();
+          sessionTitle.value = "Nouvelle séance";
+          setSessionFeedback("", false);
+          showToast("Séance enregistrée.", false);
+        } catch (error) {
+          const message = error instanceof Error ? error.message : "Une erreur inattendue est survenue.";
+          setSessionFeedback(`Enregistrement impossible : ${message}`, true);
+        } finally {
+          backToGym.disabled = false;
+          confirmSession.disabled = false;
+          confirmSession.removeAttribute("aria-busy");
+        }
+      }
+
+      async function signOut() {
+        setMenuOpen(false);
+        signOutAction.disabled = true;
+
+        try {
+          const { error } = await supabaseClient.auth.signOut();
+          if (error) {
+            showToast(`Déconnexion impossible : ${error.message}`, true);
+          } else {
+            showAuthScreen();
+          }
+        } catch (error) {
+          const message = error instanceof Error ? error.message : "Une erreur inattendue est survenue.";
+          showToast(`Déconnexion impossible : ${message}`, true);
+        } finally {
+          signOutAction.disabled = false;
+        }
+      }
+
+      async function initializeSupabase() {
+        if (!window.supabase || !window.SUPABASE_CONFIG) {
+          setAuthFeedback("Le service de connexion n’a pas pu être chargé. Vérifie ta connexion puis recharge l’application.", true);
+          return;
+        }
+
+        try {
+          supabaseClient = window.supabase.createClient(
+            window.SUPABASE_CONFIG.url,
+            window.SUPABASE_CONFIG.publishableKey
+          );
+          authSubmit.disabled = false;
+
+          supabaseClient.auth.onAuthStateChange((_event, session) => {
+            if (session) {
+              showAuthenticatedApp(session.user);
+            } else {
+              showAuthScreen();
+            }
+          });
+
+          const { data, error } = await supabaseClient.auth.getSession();
+          if (error) {
+            showAuthScreen();
+            setAuthFeedback(`Impossible de vérifier la connexion : ${error.message}`, true);
+            return;
+          }
+
+          if (data.session) {
+            showAuthenticatedApp(data.session.user);
+          } else {
+            showAuthScreen();
+          }
+        } catch (error) {
+          const message = error instanceof Error ? error.message : "Une erreur inattendue est survenue.";
+          setAuthFeedback(`Connexion à Supabase impossible : ${message}`, true);
+        }
+      }
+
+      authModeToggle.addEventListener("click", () => {
+        setAuthMode(!isSignUpMode);
+      });
+
+      authForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        if (!supabaseClient) {
+          setAuthFeedback("Le service de connexion n’est pas disponible. Vérifie ta connexion puis recharge l’application.", true);
+          return;
+        }
+
+        authSubmit.disabled = true;
+        setAuthFeedback("", false);
+
+        try {
+          const result = isSignUpMode
+            ? await supabaseClient.auth.signUp({
+              email: authEmail.value.trim(),
+              password: authPassword.value
+            })
+            : await supabaseClient.auth.signInWithPassword({
+              email: authEmail.value.trim(),
+              password: authPassword.value
+            });
+
+          if (result.error) {
+            setAuthFeedback(result.error.message, true);
+            return;
+          }
+
+          if (isSignUpMode && !result.data.session) {
+            authPassword.value = "";
+            setAuthFeedback("Compte créé. Consulte ton courriel pour confirmer ton adresse avant de te connecter.", false);
+            return;
+          }
+
+          if (!result.data.session) {
+            setAuthFeedback("Aucune session de connexion n’a été créée. Réessaie.", true);
+            return;
+          }
+
+          showAuthenticatedApp(result.data.session.user);
+        } catch (error) {
+          const message = error instanceof Error ? error.message : "Une erreur inattendue est survenue.";
+          setAuthFeedback(`Connexion impossible : ${message}`, true);
+        } finally {
+          authSubmit.disabled = false;
+        }
+      });
+
+      function closeNewSession() {
+        newSessionPage.hidden = true;
+        cancelConfirmation.hidden = true;
+        sessionTopbar.inert = false;
+        mainPage.inert = false;
+        bottomNav.inert = false;
+        menuToggle.focus();
+      }
+
+      function openCancelConfirmation() {
+        cancelConfirmation.hidden = false;
+        sessionTopbar.inert = true;
+        continueSession.focus();
+      }
+
+      function continueNewSession() {
+        cancelConfirmation.hidden = true;
+        sessionTopbar.inert = false;
+        backToGym.focus();
+      }
+
+      backToGym.addEventListener("click", openCancelConfirmation);
+      confirmSession.addEventListener("click", saveNewSession);
+      cancelSession.addEventListener("click", closeNewSession);
+      continueSession.addEventListener("click", continueNewSession);
+      signOutAction.addEventListener("click", signOut);
+
+      document.addEventListener("click", (event) => {
+        if (!event.target.closest(".options-wrap")) {
+          setMenuOpen(false);
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !cancelConfirmation.hidden) {
+          continueNewSession();
+        } else if (event.key === "Escape" && !newSessionPage.hidden) {
+          openCancelConfirmation();
+        } else if (event.key === "Escape" && !optionsMenu.hidden) {
+          setMenuOpen(false);
+          menuToggle.focus();
+        }
+      });
+
+      setAuthMode(false);
+      initializeSupabase();
+
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
           navigator.serviceWorker.register("./sw.js").catch((error) => {
