@@ -101,68 +101,71 @@
         position: fixed;
         z-index: 1;
         right: 0;
-        bottom: 8px;
+        bottom: calc(12px - var(--safe-bottom));
         left: 0;
         display: flex;
         width: 100%;
-        height: 64px;
+        height: 78px;
         align-items: center;
         justify-content: center;
-        padding: 0 16px;
+        padding: 0 20px 4px;
         pointer-events: none;
       }
 
       .nav-pill {
         display: flex;
+        width: min(100%, 560px);
+        height: 70px;
         align-items: center;
-        justify-content: center;
-        gap: 5px;
-        padding: 7px;
-        border: 1px solid rgba(255, 255, 255, 0.45);
+        justify-content: space-between;
+        gap: 4px;
+        padding: 5px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.88);
-        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.24);
+        background: rgba(23, 24, 28, 0.86);
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
         -webkit-backdrop-filter: blur(24px) saturate(160%);
         backdrop-filter: blur(24px) saturate(160%);
         pointer-events: auto;
       }
 
       .nav-item {
-        display: grid;
-        width: 40px;
-        height: 40px;
+        display: flex;
+        min-width: 0;
+        height: 58px;
         padding: 0;
-        place-items: center;
-        flex: 0 0 40px;
+        align-items: center;
+        justify-content: center;
+        flex: 1 1 0;
         border: 0;
-        border-radius: 50%;
+        border-radius: 999px;
         background: transparent;
-        color: #55565b;
+        color: rgba(255, 255, 255, 0.92);
         -webkit-tap-highlight-color: transparent;
       }
 
       .nav-item[aria-current="page"] {
-        color: #1a1b20;
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
       }
 
       .nav-item:disabled {
-        opacity: 0.72;
+        cursor: default;
       }
 
       .nav-item svg {
-        width: 25px;
-        height: 25px;
+        width: 28px;
+        height: 28px;
       }
 
       .nav-item[aria-current="page"] svg {
-        width: 28px;
-        height: 28px;
-        stroke-width: 2.8;
+        width: 30px;
+        height: 30px;
       }
 
       .nav-item:focus-visible {
-        outline: 2px solid #1a1b20;
-        outline-offset: 1px;
+        outline: 2px solid rgba(255, 255, 255, 0.9);
+        outline-offset: -2px;
       }
 
       .nav-item:disabled:focus-visible {
@@ -173,13 +176,11 @@
       @media (max-width: 360px) {
         .nav-pill {
           gap: 2px;
-          padding: 6px;
+          height: 64px;
         }
 
         .nav-item {
-          width: 38px;
-          height: 38px;
-          flex-basis: 38px;
+          height: 52px;
         }
       }
     </style>
