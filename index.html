@@ -82,38 +82,45 @@
         right: 24px;
         left: 24px;
         display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
+        justify-content: flex-end;
+      }
+
+      .page-heading {
+        position: absolute;
+        top: calc(112px + var(--safe-top));
+        right: 24px;
+        left: 24px;
+        padding-bottom: 9px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
       }
 
       .page-title {
         margin: 0;
-        padding-top: 12px;
-        font-size: clamp(32px, 8vw, 38px);
-        font-weight: 700;
-        letter-spacing: -0.04em;
-        line-height: 1.1;
+        font-size: clamp(22px, 5.6vw, 26px);
+        font-weight: 550;
+        letter-spacing: -0.025em;
+        line-height: 1.2;
       }
 
       .more-button {
         display: grid;
-        width: 48px;
-        height: 48px;
+        width: 44px;
+        height: 44px;
         padding: 0;
         place-items: center;
         border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.24);
+        background: rgba(54, 55, 60, 0.76);
         color: #fff;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.24);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.24);
         -webkit-backdrop-filter: blur(24px) saturate(160%);
         backdrop-filter: blur(24px) saturate(160%);
         -webkit-tap-highlight-color: transparent;
       }
 
       .more-button svg {
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 20px;
       }
 
       .more-button:focus-visible {
@@ -201,7 +208,6 @@
   <body>
     <main class="gym-page" aria-label="Page Gym">
       <header class="topbar">
-        <h1 class="page-title">Aujourd’hui</h1>
         <button class="more-button" type="button" aria-label="Plus d’options">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <circle cx="5" cy="12" r="1.7" />
@@ -210,6 +216,9 @@
           </svg>
         </button>
       </header>
+      <section class="page-heading" aria-labelledby="page-title">
+        <h1 class="page-title" id="page-title">Aujourd’hui</h1>
+      </section>
     </main>
     <nav class="bottom-nav" aria-label="Navigation principale">
       <div class="nav-pill">
