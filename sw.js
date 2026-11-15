@@ -1,7 +1,8 @@
-const CACHE_NAME = "gym-app-v37";
+const CACHE_NAME = "gym-app-v99";
 const APP_SHELL = [
   "./",
   "./index.html",
+  "./exercise-catalog.json",
   "./supabase-config.js",
   "./manifest.webmanifest",
   "./icon.svg",
